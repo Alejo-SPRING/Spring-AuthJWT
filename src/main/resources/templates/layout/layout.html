@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+<title th:text="'AppSpringFramework ' + ${titulo}"></title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body>
+	<header th:fragment="top-cliente">
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+			<a th:href="@{/}">
+				<h3 class="navbar-brand">
+					<img th:src="@{/imgs/logo.png}" alt="imagen logo" height="60"
+						width="60" class="rounded-circle" />AppSpringFramework
+				</h3>
+			</a>
+			<button type="button" class="navbar-toggler" data-toggle="collapse"
+				data-target="#menu">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="menu">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a th:href="@{/cliente/verFac}"
+						class="nav-link">Ver facturas</a></li>
+					<li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')"><a
+						th:href="@{/cliente/productos}" class="nav-link">Registrar
+							facturas</a></li>
+					<li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')"><a
+						th:href="@{/cliente/crearProducto}" class="nav-link">Producto</a></li>
+				</ul>
+				<ul class="navbar-nav navbar-right">
+					<li class="nav-item"><a class="nav-link">
+							<div sec:authorize="isAuthenticated()">
+								<small th:text="${userName}"></small> <small
+									sec:authentication="principal.authorities"></small>
+							</div>
+					</a></li>
+					<li class="nav-item"><form th:action="@{/logout}"
+							method="post">
+							<button type="submit" class="btn btn-outline-primary">Salir</button>
+						</form></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<header th:fragment="top">
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+			<a th:href="@{/}">
+				<h3 class="navbar-brand">
+					<img th:src="@{/imgs/logo.png}" alt="imagen logo" height="60"
+						width="60" class="rounded-circle" /> AppSpringFramework
+				</h3>
+			</a>
+			<button type="button" class="navbar-toggler" data-toggle="collapse"
+				data-target="#menu">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="menu">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item"><a th:href="@{/springLogin2}"
+						class="nav-link" th:text="#{text.cliente.inicio}"></a></li>
+					<li class="nav-item"><a th:href="@{/registrar}"
+						class="nav-link" th:text="#{text.cliente.registrar}"></a></li>
+				</ul>
+				<ul class="navbar-nav navabr-right mx-4">
+					<li class="nav-item dropdown show"><a
+						class="btn btn-outline-primary dropdown-toggle"
+						data-toggle="dropdown" href="#" id="dropdownLenguaje"
+						th:text="#{text.locale.lenguaje}"></a>
+						<div class="dropdown-menu bg-dark">
+							<a class="dropdown-item text-light" th:href="@{/locale?lang=es_ES}">ES</a> <a
+								class="dropdown-item text-light" th:href="@{/locale?lang=en_EN}">US</a> <a
+								class="dropdown-item text-light" th:href="@{/locale/?lang=de_DE}">DE</a>
+						</div></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<footer th:fragment="footer">
+		<div class="container-fluid bg-dark mt-5">
+			<div class="row">
+				<div class="col-3">
+					<img th:src="@{/imgs/logo.png}" class="rounded-circle mt-3"
+						width="90" height="90" />
+				</div>
+				<div class="col-8">
+					<p class="text-center text-light">AppSpringFramework
+						desarollada por: Anderson Rojas</p>
+					<p class="text-center text-light">&copyRight; Not copy right</p>
+					<p class="text-center text-light" th:text="#{text.cliente.footer}"></p>
+				</div>
+			</div>
+		</div>
+		<script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		<script th:src="@{/js/popper.min.js}"></script>
+		<script th:src="@{/js/MisScripts.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/mensajes.js}"></script>
+		<script th:if="${mensaje}" th:utext="${mensaje}"></script>
+	</footer>
+</body>
+</html>
